@@ -42,6 +42,7 @@ def leiaTexto(txt):
 
 # Inserção de manifestações no sistema.
 def inserirManifestacao():
+    cabecalho("Inserção de Manifestação")
     try:
         while True:
             cpfManifestante = leiaTexto("Insira seu CPF: ").strip()
@@ -64,8 +65,8 @@ def inserirManifestacao():
             print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
         else:
             try:
-                sql = ('INSERT INTO ouvidoria(cpfManifestante, manifestante, manifestacao, telefone_1) SELECT "'+cpfManifestante+'", "'+manifestante+'", "'+manifestacao+'", "'+telefone_1+'"')
-                c.execute(sql)
+                sql = 'INSERT INTO ouvidoria(cpfManifestante, manifestante, manifestacao, telefone_1) VALUES(?, ?, ?, ?)'
+                c.execute(sql, (cpfManifestante, manifestante, manifestacao, telefone_1))
             except:
                 print("\nErro ao inserir manifestação.")
             else:
@@ -92,6 +93,7 @@ def listarManifestacoes():
 
 # Exclusão de manifestações existentes no sistema.
 def excluirManifestacao():
+    cabecalho("Exclusão de Manifestação")
     idExclusao = lerInteiro("\nInsira o ID da manifestação que deseja excluir: ")
     try:
         c = con.cursor()
@@ -99,16 +101,17 @@ def excluirManifestacao():
         print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
     else:
         try:
-            dsql = f'DELETE FROM ouvidoria WHERE id = {idExclusao}'
-            c.execute(dsql)
+            dsql = 'DELETE FROM ouvidoria WHERE id = ?'
+            c.execute(dsql, (idExclusao,))
         except:
             print("Manifestação não encontrada.")
         else:
-            print("A manifestação com ID ", idExclusao, " foi apagada com sucesso!")
+            print("\nA manifestação com ID ", idExclusao, " foi apagada com sucesso!")
             con.commit()
 
 # Alteração de manifestações existentes no sistema.
 def alterarManifestacao():
+    cabecalho("Alteração de Manifestação")
     idAlteracao = lerInteiro("\nInsira o ID da manifestação que deseja alterar: ")
     try:
         c = con.cursor()
@@ -116,8 +119,8 @@ def alterarManifestacao():
         print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
     else:
         try:
-            sql = f'SELECT * FROM ouvidoria WHERE id = {idAlteracao}'
-            c.execute(sql)
+            sql = 'SELECT * FROM ouvidoria WHERE id = ?'
+            c.execute(sql, (idAlteracao,))
             alterar = c.fetchall()
         except:
             print("Erro na busca pela manifestação.")
@@ -141,5 +144,5 @@ def alterarManifestacao():
                 asql = 'UPDATE ouvidoria SET cpfManifestante = ?, manifestante = ?, manifestacao = ?, telefone_1 = ? WHERE id = ?;'
                 c.execute(asql, (cpfManifestante, manifestante, manifestacao, telefone_1, idAlteracao))
                 con.commit()
-                print("Manifestação alterada com sucesso!")
+                print("\nManifestação alterada com sucesso!")
                 

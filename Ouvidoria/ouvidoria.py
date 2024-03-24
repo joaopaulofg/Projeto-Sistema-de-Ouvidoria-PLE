@@ -1,4 +1,4 @@
-from lib import cabecalho, menuPrincipal, lerInteiro, inserirManifestacao, listarManifestacoes, excluirManifestacao
+from lib import cabecalho, menuPrincipal, lerInteiro, inserirManifestacao, listarManifestacoes, excluirManifestacao, alterarManifestacao
 import os
 
 cabecalho("ouvidoria do joão")
@@ -13,7 +13,7 @@ while True:
     elif op == 2:
         inserirManifestacao()
     elif op == 3:
-        print()
+        alterarManifestacao()
     elif op == 4:
         excluirManifestacao()
     elif op == 5:

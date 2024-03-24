@@ -106,3 +106,40 @@ def excluirManifestacao():
         else:
             print("A manifestação com ID ", idExclusao, " foi apagada com sucesso!")
             con.commit()
+
+# Alteração de manifestações existentes no sistema.
+def alterarManifestacao():
+    idAlteracao = lerInteiro("\nInsira o ID da manifestação que deseja alterar: ")
+    try:
+        c = con.cursor()
+    except:
+        print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
+    else:
+        try:
+            sql = f'SELECT * FROM ouvidoria WHERE id = {idAlteracao}'
+            c.execute(sql)
+            alterar = c.fetchall()
+        except:
+            print("Erro na busca pela manifestação.")
+        else:
+            try:
+                while True:
+                    cpfManifestante = leiaTexto("Insira seu CPF: ").strip()
+                    break
+                while True:
+                    manifestante = leiaTexto("Insira seu nome: ").strip()
+                    break
+                while True:
+                    manifestacao = leiaTexto("Insira o seu relato da manifestação: ").strip()
+                    break
+                while True:
+                    telefone_1 = leiaTexto("Insira seu telefone para contato: ").strip()
+                    break
+            except:
+                print("Erro na alteração de dados da manifestação.")
+            else:
+                asql = 'UPDATE ouvidoria SET cpfManifestante = ?, manifestante = ?, manifestacao = ?, telefone_1 = ? WHERE id = ?;'
+                c.execute(asql, (cpfManifestante, manifestante, manifestacao, telefone_1, idAlteracao))
+                con.commit()
+                print("Manifestação alterada com sucesso!")
+                

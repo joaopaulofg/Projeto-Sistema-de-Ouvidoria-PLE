@@ -1,4 +1,5 @@
 from banco import con
+import os
 
 # Cabecalho
 def cabecalho(msg):
@@ -42,6 +43,7 @@ def leiaTexto(txt):
 
 # Inserção de manifestações no sistema.
 def inserirManifestacao():
+    os.system('clear')
     cabecalho("Inserção de Manifestação")
     try:
         while True:
@@ -70,7 +72,8 @@ def inserirManifestacao():
             except:
                 print("\nErro ao inserir manifestação.")
             else:
-                print("\nManifestação inserido com sucesso!")
+                os.system('clear')
+                print("\nManifestação inserida com sucesso!")
                 con.commit()
 
 # Listagem de manifestações existentes no sistema.
@@ -86,6 +89,7 @@ def listarManifestacoes():
         except:
             print("Erro ao listar manifestações.")
         else:
+            os.system('clear')
             cabecalho("manifestações cadastradas")
             manifestacoes = c.fetchall()
             for m in manifestacoes:
@@ -93,6 +97,7 @@ def listarManifestacoes():
 
 # Exclusão de manifestações existentes no sistema.
 def excluirManifestacao():
+    os.system('clear')
     cabecalho("Exclusão de Manifestação")
     idExclusao = lerInteiro("\nInsira o ID da manifestação que deseja excluir: ")
     try:
@@ -111,6 +116,7 @@ def excluirManifestacao():
 
 # Alteração de manifestações existentes no sistema.
 def alterarManifestacao():
+    os.system('clear')
     cabecalho("Alteração de Manifestação")
     idAlteracao = lerInteiro("\nInsira o ID da manifestação que deseja alterar: ")
     try:

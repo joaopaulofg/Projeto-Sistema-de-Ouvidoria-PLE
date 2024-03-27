@@ -1,7 +1,9 @@
 from lib import cabecalho, menuPrincipal, lerInteiro, inserirManifestacao, listarManifestacoes, excluirManifestacao, alterarManifestacao
 import os
 
-cabecalho("ouvidoria do joão")
+os.system('clear')
+
+print("\n\033[1;32mBem-vindo ao sistema de Ouvidoria do João!\033[m")
 
 while True:
     cabecalho("menu de opções")
@@ -17,9 +19,8 @@ while True:
     elif op == 4:
         excluirManifestacao()
     elif op == 5:
-        print('Finalizando...')
-        os.system('cls')
-        print('Programa Encerrado')
+        os.system('clear')
+        print("\n\033[1;32mFinalizando...\033[m")
         break
     else:
         print("\nOpção inválida.")

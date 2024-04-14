@@ -3,14 +3,14 @@ import os
 
 # Cabecalho
 def cabecalho(msg):
-    print()
     print('-'*40)
     print(msg.center(40).upper())
     print('-'*40)
+    print()
 
 # Menu Principal
 def menuPrincipal():
-    print("\n1 - Listar todas as manifestações\n"
+    print("1 - Listar todas as manifestações\n"
     "2 - Listar manifestações por tipo\n"
     "3 - Inserir manifestação\n"
     "4 - Exibir quantidade de manifestações\n"
@@ -107,7 +107,6 @@ def inserirManifestacao():
                     input("\nPressione qualquer tecla para continuar...")
                     os.system('clear')
 
-
 # Listagem de manifestações existentes no sistema.
 def listarManifestacoes():
     try:
@@ -133,6 +132,54 @@ def listarManifestacoes():
 
             print("\n-------- FIM DA LISTAGEM --------")
         
+        input("\nPressione qualquer tecla para continuar...")
+        os.system('clear')
+
+def listarManifestacoesPorTipo():
+    try:
+        c = con.cursor()
+    except:
+        print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
+    else:
+        sql = 'SELECT * FROM ouvidoria'
+        c.execute(sql)
+        listaDeManifestacoes = c.fetchall()
+
+        if len(listaDeManifestacoes) == 0:
+            print("Não há manifestações cadastradas.")
+        else:
+            while True:
+                print("Qual o tipo da manifestação que você deseja inserir:\n"
+                            "\n1 - Elogio\n"
+                            "2 - Reclamação\n"
+                            "3 - Sugestão\n")
+                    
+                tipo = leiaTexto(">>> Digite uma opcão: ")
+
+                if tipo in ['1', '2', '3']:
+                    tipoManifestacao = switch_case(tipo)
+                    break
+                else:
+                    print("Opção inválida. Digite novamente.")
+
+            sql = 'SELECT * FROM ouvidoria WHERE tipoManifestacao = ?'
+            c.execute(sql, (tipoManifestacao,))
+            listaDeManifestacoes = c.fetchall()
+
+            if len(listaDeManifestacoes) == 0:
+                print("Não há manifestações cadastradas com esse tipo.")
+            else:
+                os.system('clear')
+                print("--- MANIFESTAÇÕES DO TIPO " + tipoManifestacao.upper() + " CADASTRADAS ---")
+            
+                for manifestacao in listaDeManifestacoes:
+                    print("\033[33m\nManifestação - ID #", str(manifestacao[0]).rstrip(), "\033[0m", sep='')
+                    print("CPF manifestante:", manifestacao[1])
+                    print("Manifestante:", manifestacao[2])
+                    print("Tipo da manifestação:", manifestacao[3])
+                    print("Descrição:", manifestacao[4])
+                print("\n---------------- FIM DA LISTAGEM ----------------")
+
         input("\nPressione qualquer tecla para continuar...")
         os.system('clear')
 

@@ -3,7 +3,7 @@ from lib import *
 
 os.system('clear')
 
-print("\n\033[1;32mBem-vindo ao sistema de Ouvidoria do João!\033[m")
+print("\n\033[1;32mBem-vindo ao sistema de Ouvidoria do João!\033[m\n")
 
 try:
     con = sqlite3.Connection('ouvidoria.db')

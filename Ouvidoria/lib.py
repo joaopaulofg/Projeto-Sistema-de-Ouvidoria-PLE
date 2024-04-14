@@ -114,15 +114,15 @@ def listarManifestacoes():
     except:
         print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
     else:
-        try:
-            sql = 'SELECT * FROM ouvidoria'
-            c.execute(sql)
-        except:
-            print("Erro ao listar manifestações.")
+        sql = 'SELECT * FROM ouvidoria'
+        c.execute(sql)
+        listaDeManifestacoes = c.fetchall()
+
+        if len(listaDeManifestacoes) == 0:
+            print("Nenhuma manifestação cadastrada.")
         else:
             print("--- MANIFESTAÇÕES CADASTRADAS ---")
 
-            listaDeManifestacoes = c.fetchall()
             for manifestacao in listaDeManifestacoes:
                 print("\033[33m\nManifestação - ID #", str(manifestacao[0]).rstrip(), "\033[0m", sep='')
                 print("CPF manifestante:", manifestacao[1])
@@ -131,9 +131,9 @@ def listarManifestacoes():
                 print("Descrição:", manifestacao[4])
 
             print("\n-------- FIM DA LISTAGEM --------")
-        
-        input("\nPressione qualquer tecla para continuar...")
-        os.system('clear')
+    
+    input("\nPressione qualquer tecla para continuar...")
+    os.system('clear')
 
 def listarManifestacoesPorTipo():
     try:
@@ -185,22 +185,44 @@ def listarManifestacoesPorTipo():
 
 # Exclusão de manifestações existentes no sistema.
 def excluirManifestacao():
-    os.system('clear')
-    cabecalho("Exclusão de Manifestação")
-    idExclusao = lerInteiro("\nInsira o ID da manifestação que deseja excluir: ")
     try:
         c = con.cursor()
     except:
         print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
     else:
-        try:
-            dsql = 'DELETE FROM ouvidoria WHERE id = ?'
-            c.execute(dsql, (idExclusao,))
-        except:
-            print("Manifestação não encontrada.")
+        print("--- EXCLUSÃO DE MANIFESTAÇÃO ---")
+        exclusao = leiaTexto("\nInsira o ID da manifestação que deseja excluir: ")
+        sql = 'SELECT * FROM ouvidoria WHERE id = ?'
+        c.execute(sql, (exclusao,))
+        manifestacao = c.fetchall()
+
+        if manifestacao == []:
+                print("\nNão localizamos nenhuma manifestação cadastrada com esse ID.")
+                resultado = ""
         else:
-            print("\nA manifestação com ID ", idExclusao, " foi apagada com sucesso!")
-            con.commit()
+            for campo in manifestacao:
+                print("\033[33m\nManifestação - ID #", str(campo[0]).rstrip(), "\033[0m", sep='')
+                print("Tipo da Manifestação:", campo[1])
+                print("Manifestante:", campo[2])
+                print("Descrição:", campo[3])
+
+            while True:
+                confirmacao = input("\nConfirma a exclusão da manifestação abaixo? S/N:").upper()
+                if confirmacao == 'S':
+                    sql = 'DELETE FROM ouvidoria WHERE id = ?'
+                    c.execute(sql, (exclusao,))
+                    con.commit()
+                    resultado = "\nManifestação excluída com sucesso!\n"
+                    break
+                elif confirmacao == 'N':
+                    resultado = "\nExclusão cancelada.\n"
+                    break
+                else:
+                    print("\nOpção inválida. Digite novamente.")
+        
+        print(resultado)
+        input("Pressione qualquer tecla para continuar...")
+        os.system('clear')
 
 # Alteração de manifestações existentes no sistema.
 def alterarManifestacao():

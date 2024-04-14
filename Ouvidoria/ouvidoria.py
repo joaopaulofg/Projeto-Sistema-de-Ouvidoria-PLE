@@ -24,7 +24,7 @@ else:
         # Opção 2 - Listar Manifestações por tipo.
         elif opcao == 2:
             os.system('clear')
-            listarManifestacoesPorTipo() # type: ignore
+            listarManifestacoesPorTipo()
 
         # Opção 3 - Inserir uma nova manifestação no sistema.
         elif opcao == 3:

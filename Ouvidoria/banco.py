@@ -11,6 +11,7 @@ else:
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             cpfManifestante VARCHAR(11),
             manifestante VARCHAR(50),
+            tipoManifestacao VARCHAR(15),
             manifestacao VARCHAR(200),
             telefone_1 VARCHAR(14));
             '''

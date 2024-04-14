@@ -1,2 +1,2 @@
-Projeto da disciplina Programar em Lingaguem Estruturada do curso Análise e Desenvolvimento de Sistemas da Unifacisa.
-O projeto consiste em implementar um sistema de ouvidoria contendo as funções essenciais (listagem, inserção, alteração e exclusão de manifestações), utilizando banco de dados para persistência.
+Projeto desenvolvido com os aprendizados da disciplina Programar em Lingaguem Estruturada do curso Análise e Desenvolvimento de Sistemas da Unifacisa.
+O projeto consiste em implementar um sistema de ouvidoria contendo as funções essenciais (listagem, listagem por tipo, inserção, exibição da quantidade cadastrada, pesquisa e exclusão de manifestações), utilizando banco de dados MySQL para armazenamento dos dados.

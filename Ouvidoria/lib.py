@@ -41,6 +41,7 @@ def lerTexto(txt):
                 break
         return ent
 
+# 'Dicionário' para mapear o tipo de manifestação.
 def switch_case(value):
     return {
         '1': 'Elogio',

@@ -12,7 +12,7 @@ else:
             cpfManifestante VARCHAR(11),
             manifestante VARCHAR(50),
             tipoManifestacao VARCHAR(15),
-            manifestacao VARCHAR(200),
+            manifestacao VARCHAR(500),
             telefone_1 VARCHAR(14));
             '''
         c.execute(sql)

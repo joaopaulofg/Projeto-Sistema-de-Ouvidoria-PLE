@@ -3,7 +3,7 @@ from lib import *
 
 os.system('clear')
 
-print("\n\033[1;32mBem-vindo ao sistema de Ouvidoria do João!\033[m\n")
+print("\n\033[1;32mBem-vindo ao meu sistema de Ouvidoria!\033[m\n")
 
 try:
     con = sqlite3.Connection('ouvidoria.db')
@@ -39,7 +39,7 @@ else:
         # Opção 5 - Pesquisar manifestação por ID.
         elif opcao == 5:
             os.system('clear')
-            pesquisarManifestacao() # type: ignore
+            pesquisarManifestacao()
 
         # Opção 6 - Excluir manifestação por ID.
         elif opcao == 6:

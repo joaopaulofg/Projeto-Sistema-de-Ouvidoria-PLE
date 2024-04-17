@@ -138,7 +138,10 @@ def inserirManifestacao():
             print("-------- INSERÇÃO DE MANIFESTAÇÃO --------")
             while True:
                 cpfManifestante = lerTexto("\nInsira seu CPF: ").strip()
-                break
+                if len(cpfManifestante) != 11:
+                    print("CPF inválido. Digite novamente.")
+                else:
+                    break
 
             while True:
                 manifestante = lerTexto("Insira seu nome: ").strip()
@@ -164,7 +167,10 @@ def inserirManifestacao():
 
             while True:
                 telefone_1 = lerTexto("Insira seu telefone para contato: ").strip()
-                break
+                if len(telefone_1) != 11:
+                    print("Telefone inválido. Digite novamente no formato 11999999999.")
+                else:
+                    break
         except:
             print("Erro na inserçao de dados da manifestação.")
         else:

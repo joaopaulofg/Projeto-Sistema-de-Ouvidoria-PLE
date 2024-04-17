@@ -109,7 +109,7 @@ def listarManifestacoesPorTipo():
             listaDeManifestacoes = c.fetchall()
 
             if len(listaDeManifestacoes) == 0:
-                print("Não há manifestações cadastradas com esse tipo.")
+                print("\nNão há manifestações cadastradas com esse tipo.")
             else:
                 os.system('clear')
                 print("--- MANIFESTAÇÕES DO TIPO " + tipoManifestacao.upper() + " CADASTRADAS ---")
@@ -186,9 +186,29 @@ def inserirManifestacao():
 
 # Listagem da quantidade de manifestações cadastradas no sistema.
 def listarQuantidadeDeManifestacoes():
-    print("Em desenvolvimento...")
-    input("\nPressione qualquer tecla para continuar...")
+    os.system('clear')
+    try:
+        c = con.cursor()
+    except:
+        print('\033[1;31mErro ao tentar conectar-se ao banco de dados.\033[m')
+    else:
+        print("---- LISTAGEM DE MANIFESTAÇÕES CADASTRADAS ----\n")
+        sql = "SELECT tipoManifestacao,  COUNT(*) AS totalManifestacoes FROM ouvidoria GROUP BY tipoManifestacao"
+        c.execute(sql)
+        manifestacoesCadastradas = c.fetchall()
 
+        if manifestacoesCadastradas == []:
+            print("Nenhuma manifestação cadastrada.")
+        else:
+            contador = 0
+            for tipo in manifestacoesCadastradas:
+                print(tipo[0] + ":", tipo[1])
+                contador += tipo[1]
+            print("\nTotal:", contador)
+
+    input("\nPressione qualquer tecla para continuar...")
+    os.system('clear')
+            
 # Pesquisa de manifestações por ID.
 def pesquisarManifestacao():
     os.system('clear')
@@ -313,6 +333,6 @@ def alterarManifestacao():
 
 def encerrarSistema():
     os.system('clear')
-    print("\n\033[1;32mFinalizando...\033[m")
+    print("\n\033[1;32mFinalizando...\033[m\n")
     con.close()
     exit()

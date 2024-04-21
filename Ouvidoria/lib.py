@@ -97,13 +97,12 @@ def listarManifestacoesPorTipo():
                             "2 - Reclamação\n"
                             "3 - Sugestão\n")
                     
-                tipo = lerTexto(">>> Digite uma opcão: ")
+                tipoManifestacao = switch_case(lerTexto(">>> Digite uma opcão: "))
 
-                if tipo in ['1', '2', '3']:
-                    tipoManifestacao = switch_case(tipo)
-                    break
-                else:
+                if tipoManifestacao == 'Valor inválido':
                     print("Opção inválida. Digite novamente.")
+                else:
+                    break
 
             sql = 'SELECT * FROM ouvidoria WHERE tipoManifestacao = ?'
             c.execute(sql, (tipoManifestacao,))
@@ -153,13 +152,12 @@ def inserirManifestacao():
                         "2 - Reclamação\n"
                         "3 - Sugestão\n")
                 
-                tipo = lerTexto(">>> Digite uma opcão: ")
+                tipoManifestacao = switch_case(lerTexto(">>> Digite uma opcão: "))
 
-                if tipo in ['1', '2', '3']:
-                    tipoManifestacao = switch_case(tipo)
-                    break
-                else:
+                if tipoManifestacao == 'Valor inválido':
                     print("Opção inválida. Digite novamente.")
+                else:
+                    break
 
             while True:
                 manifestacao = lerTexto("Insira o seu relato da manifestação: ").strip()
@@ -338,6 +336,7 @@ def alterarManifestacao():
         input("Pressione qualquer tecla para continuar...")
         os.system('clear')
 
+# Encerramento do sistema.
 def encerrarSistema():
     os.system('clear')
     print("\n\033[1;32mFinalizando...\033[m\n")
